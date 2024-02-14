@@ -1,0 +1,160 @@
+<html>
+  <head>
+    <title>Node/Express Application</title>
+    <style>
+      * {
+        font-size: 30px;
+      }
+      body {
+        font-family: sans-serif;
+      }
+
+      ul,
+      li {
+        margin: 0;
+        padding: 0;
+      }
+
+      li {
+        margin-bottom: 10px;
+      }
+
+      a {
+        font-size: 20px;
+        background-color: rgb(29, 29, 29);
+        color: #fff;
+        display: inline-block;
+        padding: 10px 15px;
+      }
+
+      pre {
+        display: inline-block;
+        background-color: #930d6b;
+        margin: 0;
+        padding: 0 10px;
+      }
+
+      a:hover {
+        background: #930d6b;
+        transition: background-color 0.25s;
+      }
+
+      .loginForm,
+      .submitLogin {
+        font-size: 24px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Login</h1>
+    <h4>Navigation</h4>
+    <ul>
+      <li>
+        <a href="/"
+          ><strong>GET</strong> | Home -
+          <pre>/</pre>
+        </a>
+      </li>
+      <li>
+        <a href="/login">
+          <strong>GET</strong> | Login -
+          <pre>/login</pre>
+        </a>
+      </li>
+      <li>
+        <a href="#"
+          ><strong>POST</strong> | Login -
+          <pre>/login?username=USERNAME&password=PASSWORD</pre>
+        </a>
+      </li>
+      <li>
+        <a href="/pokemon/:name">
+          <strong>GET</strong> | Pokemon Pic -
+          <pre>/pokemon/:name</pre>
+        </a>
+      </li>
+    </ul>
+    <hr />
+    <h4>Enter Your Info</h4>
+    <form id="loginForm">
+      <label for="username">Username</label>
+      <input
+        class="username"
+        id="username"
+        type="text"
+        name="username"
+        placeholder="Username"
+        required
+        value="dan"
+      /><br />
+      <label for="password">Password</label>
+      <input
+        class="password"
+        id="password"
+        type="password"
+        name="password"
+        placeholder="Password"
+        value="digangi"
+        required
+      /><br /><br />
+      <input type="submit" class="submit" value="Submit" />
+    </form>
+
+    <script>
+      const url = new URL(window.location)
+      const form = document.querySelector('#loginForm')
+
+      async function sendData() {
+        const formData = new FormData(form)
+        const formDataInputs = [...formData.entries()]
+        const bodyData = {}
+
+        try {
+          formDataInputs.forEach((input) => {
+            // Add each user input to a query string
+            // url.searchParams.set(input[0], input[1])
+
+            // Alternative sending body data
+            bodyData[input[0]] = input[1]
+          })
+
+          // console.log('params', url.searchParams.toString())
+
+          const response = await fetch('/login', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(bodyData),
+          })
+
+          // const response = await fetch(
+          //   `/login?${url.searchParams.toString()}`,
+          //   {
+          //     method: 'POST',
+          //   },
+          // )
+
+          const data = await response.json()
+
+          console.log(response, data)
+
+          if (response.status === 200 && data.success) {
+            setTimeout(() => {
+              // window.location = '/success'
+              console.log('done after 3 seconds')
+            }, 3000)
+          }
+        } catch (err) {
+          console.error(err)
+        }
+      }
+
+      form.addEventListener('submit', (evt) => {
+        evt.preventDefault()
+        console.log('Form Submitted')
+        sendData()
+      })
+    </script>
+  </body>
+</html>
