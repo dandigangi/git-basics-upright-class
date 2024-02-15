@@ -110,16 +110,14 @@ app.get('/about', (req, res) => {
   // Sends HTTP response
   // https://expressjs.com/en/5x/api.html#res.send
   res.status(200).json({
-    id: 220395259
+    id: 220395259,
     name: 'Dan',
     // Needs to be string until the API is updated
     age: '29',
     asl: 'Yes',
-    role: 'manager'
+    role: 'manager',
   })
 })
-
-IVP-41: Add More Fields/Update Age About Route
 
 app.get('/login', (req, res) => {
   res.sendFile(createPath('login', 'html'))
