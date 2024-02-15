@@ -109,7 +109,11 @@ app.get('/', (req, res) => {
 app.get('/about', (req, res) => {
   // Sends HTTP response
   // https://expressjs.com/en/5x/api.html#res.send
-  res.send('<h2>res.send()</h2>')
+  res.status(200).json({
+    name: 'Dan',
+    age: 29,
+    asl: 'Yes',
+  })
 })
 
 app.get('/login', (req, res) => {
