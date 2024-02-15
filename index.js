@@ -111,7 +111,7 @@ app.get('/about', (req, res) => {
   // https://expressjs.com/en/5x/api.html#res.send
   res.status(200).json({
     name: 'Dan',
-    age: '29',
+    age: 29,
     asl: 'Yes',
   })
 })
