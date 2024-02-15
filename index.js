@@ -110,12 +110,15 @@ app.get('/about', (req, res) => {
   // Sends HTTP response
   // https://expressjs.com/en/5x/api.html#res.send
   res.status(200).json({
+    id: 220395259,
     name: 'Dan',
     height: '5"11',
     birthday: '5-9-1989',
-    age: 29,
     hobby: 'coding',
+    // Needs to be string until the API is updated
+    age: '29',
     asl: 'Yes',
+    role: 'manager',
   })
 })
 
